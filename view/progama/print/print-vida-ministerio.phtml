@@ -1,0 +1,45 @@
+<?php if($this->data):?>
+    <h1 class="super-title">REUNIÃO NOSSA VIDA E MINISTÉRIO CRISTÃO</h1>
+    <?php foreach($this->data->toArray() as $ar):?>
+
+        <table class="designacao" cellspacing="0">
+             <tr><th class="title" colspan="3"><?=$ar['title'];?> - CÂNTICO <?=(int)$ar['cantico_inicial'];?> E ORAÇÃO= <span><?=$ar['presidente'];?></span></th></tr>
+
+            <tr><th width="10%">3 MIN</th><th>COMENTARIOS INICIAIS</th><th width="30%"></th></tr>
+
+            <tr><th class="tesouros-palavra" colspan="3">TESOUROS DA PALAVRA DE DEUS</th></tr>
+            <?php $tesouros=$this->ProgamaHelper()->readTesourosPalavra($ar['id']);?>
+            <?php if($tesouros):?>
+                <?php foreach($tesouros as $t):?>
+                        <tr><th><?=$t['tempo'];?> MIN</th><th><?=$t['title'];?></th><th><?=$t['publicador_id'];?></th></tr>
+                 <?php endforeach;?>
+            <?php endif;?>
+
+
+            <tr><th class="faca-melhor-ministerio" colspan="3">FAÇA SEU MELHOR NO MINISTÉRIO</th></tr>
+            <?php $this->ProgamaHelper()->readMelhorMinisterio($ar['id']);?>
+            <?php $readMelhorMinisterio=$this->ProgamaHelper()->readMelhorMinisterio($ar['id']);?>
+            <?php if($readMelhorMinisterio):?>
+                <?php foreach($readMelhorMinisterio as $t):?>
+                    <tr><th><?=$t['tempo'];?> MIN</th><th><?=$t['title'];?></th><th><?=$t['publicador_id'];?></th></tr>
+                <?php endforeach;?>
+             <?php endif;?>
+
+
+            <tr><th class="nossa-vida" colspan="3">NOSSA VIDA CRISTÂ</th></tr>
+            <tr><th class="cantico" colspan="3">CANTICO <?=(int)$ar['cantico_transicao'];?></th></tr>
+
+            <?php $readVidaCrista=$this->ProgamaHelper()->readVidaCrista($ar['id']);?>
+            <?php if($readVidaCrista):?>
+                <?php foreach($readVidaCrista as $t):?>
+                    <tr><th><?=$t['tempo'];?> MIN</th><th><?=$t['title'];?></th><th><?=$t['publicador_id'];?></th></tr>
+                <?php endforeach;?>
+            <?php endif;?>
+
+
+            <tr><th class="rodape cantico" colspan="3">CÂNTICO <?=(int)$ar['cantico_final'];?> E ORAÇÃO= <?=$ar['oracao_final'];?></th></tr>
+</table>
+<?php endforeach;?>
+<?php else: ?>
+    <h1>Não Designações para impressão!</h1>
+<?php endif;?>

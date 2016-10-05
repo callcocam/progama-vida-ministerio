@@ -1,0 +1,66 @@
+<?php if($this->data):?>
+    <?php foreach($this->data->toArray() as $ar):?>
+        <table class="designacao">
+            <tr>
+                <td>
+                    <table class="designacao-header">
+                        <tr>
+                            <th colspan="2" class="title">DESIGNAÇÃO PARA A REUNIÃO<br> NOSSA VIDA E MINISTERIO CRISTÃO</span></th>
+                        </tr>
+                        <tr>
+                            <th class="subtitle" colspan="2">Nome:&nbsp;&nbsp;&nbsp;<span class=""><?=$ar['publicador_id']?></span></th>
+                        </tr>
+                        <tr>
+                            <th class="subtitle" colspan="2">Ajdante:&nbsp;&nbsp;&nbsp;<span class=""><?=$ar['ajudante_id']?></span></th>
+                        </tr>
+                        <tr>
+                            <th class="subtitle" colspan="2">Data: &nbsp;&nbsp;&nbsp;<span class=""><?=$ar['created']?></span> </th>
+                        </tr>
+                        <tr>
+                            <th class="subtitle-a">Característica de oratória:</th><th class="data-designacao">  <?=$ar['ponto_id']?></th>
+                        </tr>
+                        <tr>
+                            <th class="subtitle-a">Designação:</th><th class="subtitle-a">A ser apresentada no(a):</th>
+                        </tr>
+                    </table>
+
+
+                    <table class="designacao-detalhe">
+                        <tr>
+                            <td><label><l class="check"><?=$ar['title']=='LEITURA'?'&#10006;':'&nbsp;&nbsp;&nbsp;';?></l>Leitura Da Semana</label></td>
+                            <td><label><l class="check">&#10006;</l>Salão Principal</label></td>
+                        </tr>
+                        <tr>
+                            <td><label><l class="check"><?=$ar['title']=='1ª VISITA'?'&#10006;':'&nbsp;&nbsp;&nbsp;';?></l>Primeira Visita</label></td>
+                            <td><label><l class="check">&nbsp;&nbsp;&nbsp;</l>Sala B</label></td>
+                        </tr>
+                        <tr>
+                            <td><label><l class="check"><?=$ar['title']=='REVISITA'?'&#10006;':'&nbsp;&nbsp;&nbsp;';?></l>Revisita</label></td>
+                            <td><label><l class="check">&nbsp;&nbsp;&nbsp;</l>Sala C</label></td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="2"><label><l class="check"><?=$ar['title']=='ESTUD. BIBLICO'?'&#10006;':'&nbsp;&nbsp;&nbsp;';?></l>Estudo Biblico</label></td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="2"><label><l class="check"><?=$ar['title']==''?'&#10006;':'&nbsp;&nbsp;&nbsp;';?></l>Outra:_________________</label></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="designacao-obs">
+                                <strong>Observação para o estudante:</strong> A fonte de matéria da sua
+                                designação está na Apostila da Reunião Vida E Ministério.
+                                Dê antenção à característica de oratória indicada acima.
+                                O livro Escola do Ministério  explica como coloca-la em prática.
+                                Você deverá <strong>levar seu livro para a Reunião Vida e Ministério</strong>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+    <?php endforeach;?>
+<?php else: ?>
+    <h1>Não Designações para impressão!</h1>
+<?php endif;?>
