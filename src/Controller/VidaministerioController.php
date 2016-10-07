@@ -45,6 +45,11 @@ class VidaministerioController extends AbstractController
 
 
     public function vidaministerioprintAction(){
+       if($this->params()->fromRoute('id'))
+       {
+           //$this->terminal=true;
+           $this->templatePrint="/progama/print/print-vida-ministerio-item";
+       }
         return parent::printAction();
     }
 }

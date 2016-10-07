@@ -1,0 +1,27 @@
+<table class="designacao">
+    <tr><th colspan="5" class="title">PRINT LISTA DE DADOS</th></tr>
+    <?php if($this->data):?>
+        <tr><th>INDICADOR</th>
+            <th>VOLANTE</th>
+            <th>TRIBUNA</th>
+            <th>SOM</th>
+            <th>LEITOR</th>
+        </tr>
+        <?php foreach($this->data->toArray() as $ar):?>
+            <tr><th colspan="3" class="sub-title"><?=$ar['title'];?></th><th colspan="2" class="sub-title"><?=$ar['reuniao_id'];?></th></tr>
+            <tr>
+                <th><?=$ar['indidacador_id'];?></th>
+                <td><?=$ar['volante_id'];?></td>
+                <td><?=$ar['tribuna_id'];?></td>
+                <td><?=$ar['som_id'];?></td>
+                <?php if(empty($ar['leitor_sentinela_id'])):?>
+                <td><?=$ar['leitor_livro_id'];?></td></tr>
+                <?php else:?>
+                <td><?=$ar['leitor_sentinela_id'];?></td>
+            </tr>
+                <?php endif;?>
+        <?php endforeach;?>
+    <?php else: ?>
+        <tr><td colspan="3"><h1>Não Designações para impressão!</h1></td></tr>
+    <?php endif;?>
+</table>

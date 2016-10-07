@@ -1,0 +1,197 @@
+<style>
+    /*RESET*/
+    *, *:before, *:after{
+        margin: 0;
+        padding: 0;
+        outline: 0;
+        font-family: 'Trebuchet MS', sans-serif;
+        font-size: 1em;
+        font-weight: normal;
+
+        line-height: 1.2;
+        letter-spacing: 0em;
+        vertical-align: middle;
+
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+
+    }
+    .designacao{
+        border: 0;width: 95%;
+        margin: 10px auto;
+        max-width: 900px;
+        background-image: url("<?=$this->basePath('/materialize_admin/assets/img/fundo-bg.png')?>");
+        background-position: bottom;
+        background-repeat: no-repeat;
+    }
+    .designacao tr th, td{
+        padding: 3px;
+    }
+    .title{
+        width: 100%;
+        text-align: center;
+        font-weight: 600;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .semana{font-size: 1.1em;}
+
+    .presidente{text-align: left; }
+    .tesouros-palavra, .nossa-vida, .faca-melhor-ministerio{font-weight: 600;}
+    .presidente{background-color: #eeb344}
+    .faca-melhor-ministerio{font-weight: 600;background-color: #FFFF00;}
+    .tesouros-palavra{font-weight: 600; background-color: #E36C0A;}
+    .nossa-vida{font-weight: 600; background-color: #92D050;}
+    .linha th, td{text-transform: uppercase;}
+
+
+    .data-desc{color: #f00000;padding: 0 10px;text-align: left;font-size: 0.8em;}
+    .cantico, .oracao{color: #f00000;}
+    .title-item{ text-align: left;font-weight: bold;font-size: 0.8em; }
+    .comentarios-inicio{ text-align: center;}
+    .oracao-final{font-weight: 600;}
+
+    .semana-seguinte{ width: 100%; min-height: 300px; background: transparent;margin-top: 0; }
+    .recaptulacao{padding: 20px 0 0 0 !important;font-weight: 600 !important;}
+    .semana-seguinte{text-align: left; font-size: .7em; }
+
+    .rodape{width: 100%;font-size: 0.8em;text-align: left; font-weight: 600 !important;}
+    .rodape span{color: #f00000;}
+    .reuniao{background-color: #CCCCCC;}
+</style>
+
+
+<?php if($this->data):?>
+
+    <?php foreach($this->data->toArray() as $ar):?>
+        <h1 class="semana title">NOSSA VIDA E MINISTERIO CRISTÃO - <?=$ar['title'];?></h1>
+         <table class="designacao" cellspacing="0">
+            <tr class="linha">
+                <th  class="presidente" colspan="3">PRESIDENTE: <span class="data-desc"><?=$ar['presidente'];?></span></th>
+
+            </tr>
+             <tr class="linha">
+                <th class="" colspan="3">CÂNTICO: <span class="data-desc"><?=(int)$ar['cantico_inicial'];?> </span>  </th>
+             </tr>
+            <tr class="linha">
+                <th class="" colspan="3">ORAÇÃO= <span class="data-desc"><?=$ar['presidente'];?></span></th>
+            </tr>
+
+            <tr><th class="comentarios-inicio" colspan="3">3 MIN COMENTARIOS INICIAIS</th></tr>
+
+            <tr><th class="tesouros-palavra" colspan="3">TESOUROS DA PALAVRA DE DEUS</th></tr>
+            <?php $tesouros=$this->ProgamaHelper()->readTesourosPalavra($ar['id']);?>
+            <?php if($tesouros):?>
+                <?php foreach($tesouros as $t):?>
+                    <tr>
+                        <th><?=$t['tempo'];?> MIN</th>
+                        <th class="title-item"><?=$t['title'];?></th>
+                        <th width="30%" class="data-desc"><?=$t['publicador_id'];?></th>
+                     </tr>
+            <?php endforeach;?>
+            <?php endif;?>
+
+
+            <tr  class="linha"><th class="faca-melhor-ministerio" colspan="3">FAÇA SEU MELHOR NO MINISTÉRIO</th></tr>
+            <?php $readMelhorMinisterio=$this->ProgamaHelper()->readMelhorMinisterio($ar['id']);?>
+            <?php if($readMelhorMinisterio):?>
+                <?php foreach($readMelhorMinisterio as $t):?>
+                    <tr>
+                        <th><?=$t['tempo'];?> MIN</th>
+                        <th class="title-item"><?=$t['title'];?></th>
+                        <th class="data-desc"><b><?=$t['publicador_id'];?></b> / <?=$t['ajudante_id'];?></th>
+                    </tr>
+                <?php endforeach;?>
+            <?php endif;?>
+            <tr  class="linha"><th class="nossa-vida" colspan="3">NOSSA VIDA CRISTÂ - CANTICO <span class="cantico"><?=(int)$ar['cantico_transicao'];?></span> </th></tr>
+            <?php $readVidaCrista=$this->ProgamaHelper()->readVidaCrista($ar['id']);?>
+            <?php if($readVidaCrista):?>
+                <?php foreach($readVidaCrista as $t):?>
+                    <tr>
+                        <th><?=$t['tempo'];?> MIN</th>
+                        <th class="title-item"><?=$t['title'];?></th>
+                        <th class="data-desc"><?=$t['publicador_id'];?></th>
+                    </tr>
+                <?php endforeach;?>
+            <?php endif;?>
+
+
+            <tr><th colspan="3" class="recaptulacao">3 MIN RECAPITULAÇÃO DA REUNIÃO E VISÃO GERAL DA PRÓXIMA SEMANA</th></tr>
+            <tr>
+                <th colspan="3">
+                    <table class="semana-seguinte">
+                        <?php $semana_proxima=$this->ProgamaHelper()->readVidaMinisterioProxima($ar['publish_down']);?>
+                        <?php if($semana_proxima):?>
+                            <tr><th class="tesouros-palavra-seguinte" colspan="3"><?=$semana_proxima['title'];?>, CANTICO: <?=$semana_proxima['cantico_inicial'];?></th></tr>
+                            <tr><th class="tesouros-palavra-seguinte" colspan="3">TESOUROS DA PALAVRA DE DEUS</th></tr>
+                            <?php $tesouros=$this->ProgamaHelper()->readTesourosPalavra($semana_proxima['id']);?>
+                            <?php if($tesouros):?>
+                                <?php foreach($tesouros as $t):?>
+                                    <tr>
+                                        <th><?=$t['tempo'];?> MIN</th>
+                                        <th class="title-item seguinte"><?=$t['title'];?></th>
+                                        <th class="data-desc seguinte"><?=$t['publicador_id'];?></th>
+                                    </tr>
+                                <?php endforeach;?>
+                            <?php endif;?>
+                            <tr  class="linha"><th class="faca-melhor-ministerio-seguinte" colspan="3">FAÇA SEU MELHOR NO MINISTÉRIO</th></tr>
+                            <?php $this->ProgamaHelper()->readMelhorMinisterio($ar['id']);?>
+                            <?php $readMelhorMinisterio=$this->ProgamaHelper()->readMelhorMinisterio($semana_proxima['id']);?>
+                            <?php if($readMelhorMinisterio):?>
+                                <?php foreach($readMelhorMinisterio as $t):?>
+                                    <tr>
+                                        <th><?=$t['tempo'];?> MIN</th>
+                                        <th class="title-item-seguinte"><?=$t['title'];?></th>
+                                        <th class="data-desc-seguinte"><?=$t['publicador_id'];?></th>
+                                    </tr>
+                                <?php endforeach;?>
+                            <?php endif;?>
+                            <tr  class="linha"><th class="nossa-vida-seguinte" colspan="3">NOSSA VIDA CRISTÂ - CANTICO <span class="cantico"><?=(int)$ar['cantico_transicao'];?></span> </th></tr>
+                            <?php $readVidaCrista=$this->ProgamaHelper()->readVidaCrista($semana_proxima['id']);?>
+                            <?php if($readVidaCrista):?>
+                                <?php foreach($readVidaCrista as $t):?>
+                                    <tr>
+                                        <th><?=$t['tempo'];?> MIN</th>
+                                        <th class="title-item-seguinte"><?=$t['title'];?></th>
+                                        <th class="data-desc-seguinte"><?=$t['publicador_id'];?></th>
+                                    </tr>
+                                <?php endforeach;?>
+                            <?php endif;?>
+                            <tr><th class="tesouros-palavra-seguinte" colspan="3">CANTICO: <?=(int)$semana_proxima['cantico_final'];?></th></tr>
+                        <?php endif;?>
+                    </table>
+                </th>
+            </tr>
+            <tr class="linha"><th class="oracao-final" colspan="3">CÂNTICO <span class="cantico"><?=(int)$ar['cantico_final'];?></span> E ORAÇÃO= <span class="oracao"><?=$ar['oracao_final'];?></span></th></tr>
+            <tr>
+                <td colspan="3">
+                    <table  class="rodape">
+                        <?php $readDesignacoes=$this->ProgamaHelper()->readDesignacoes($ar['id']);?>
+                        <?php if($readDesignacoes):?>
+                            <?php foreach($readDesignacoes as $ar):?>
+                                <tr><th class="reuniao" colspan="3"><?=$ar['reuniao_id'];?></th> </tr>
+                                <tr class="linha">
+                                    <th class="">INDICADOR: <span class=""><?=$ar['indidacador_id'];?></span></th>
+                                    <th class="">VOLANTE: <span class=""><?=$ar['volante_id'];?></span></th>
+                                    <th class="">TRIBUNA: <span class=""><?=$ar['tribuna_id'];?></span></th>
+                                </tr>
+                                <tr class="linha">
+                                    <th class="">SOM: <span class=""><?=$ar['som_id'];?></span></th>
+                                    <?php if(empty($ar['leitor_sentinela_id'])):?>
+                                        <th colspan="2" class="">LEITOR: <span class=""><?=$ar['leitor_livro_id'];?></span></th>
+                                    <?php else:?>
+                                        <th colspan="2" class="">LEITOR: <span class=""><?=$ar['leitor_sentinela_id'];?></span></th>
+                                    <?php endif;?>
+                                </tr>
+                            <?php endforeach;?>
+                        <?php endif;?>
+
+                    </table>
+                </td>
+            </tr>
+         </table>
+    <?php endforeach;?>
+<?php else: ?>
+    <h1>Não Designações para impressão!</h1>
+<?php endif;?>
